@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/*",
-      "destination": "https://event-management-wim-project-server.onrender.com/api/*"
+      "source": "/api/(.*)",
+      "destination": "https://event-management-wim-project-server.onrender.com/api/"
     },
     {
       "source": "/(.*)",
