@@ -8,6 +8,17 @@ const eventRoutes = require('./routes/eventRoutes');
 const app = express();
 
 app.use(cors());
+const allowedOrigins = [
+  `${process.env.FRONTEND_URL_LOCAL}`,
+  `${process.env.FRONTEND_URL_PROD}`
+];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 // Routes
