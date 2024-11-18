@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { 
-  UserPlus, 
-  Mail, 
-  Lock, 
-  User,
-  Loader2, 
-  AlertCircle
-} from 'lucide-react';
+import { UserPlus, Mail, Lock, User, Loader2, AlertCircle } from 'lucide-react';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -23,7 +18,7 @@ export default function Signup() {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/signup', {
+      const response = await fetch(`${API_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password }),
@@ -49,7 +44,9 @@ export default function Signup() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-orange-800 text-transparent bg-clip-text">
             Create Account
           </h1>
-          <p className="text-neutral-400 mt-2">Sign up to start managing events</p>
+          <p className="text-neutral-400 mt-2">
+            Sign up to start managing events
+          </p>
         </div>
 
         <div className="bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 rounded-xl p-8">

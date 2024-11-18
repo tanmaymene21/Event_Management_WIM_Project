@@ -3,19 +3,31 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import emailjs from 'emailjs-com';
-import { Calendar, Users, Clock, MapPin, Info, Loader2, AlertCircle, ArrowRight } from 'lucide-react';
+import {
+  Calendar,
+  Users,
+  Clock,
+  MapPin,
+  Info,
+  Loader2,
+  AlertCircle,
+  ArrowRight,
+} from 'lucide-react';
 import { createApi } from 'unsplash-js';
 
 const UNSPLASH_CLIENTID = import.meta.env.VITE_UNSPLASH_CLIENTID;
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID_REGISTER = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_REGISTER;
+const EMAILJS_TEMPLATE_ID_REGISTER = import.meta.env
+  .VITE_EMAILJS_TEMPLATE_ID_REGISTER;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 // Initialize Unsplash API client
 const unsplash = createApi({
   accessKey: UNSPLASH_CLIENTID,
 });
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LoadingState = () => (
   <div className="min-h-screen bg-neutral-900 text-white p-6 pt-24">
@@ -46,7 +58,7 @@ const ErrorState = ({ error }) => (
 export default function RegisterForEvent() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  const [eventImage, setEventImage] = useState(null);  // State for storing image URL
+  const [eventImage, setEventImage] = useState(null); // State for storing image URL
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [registering, setRegistering] = useState(false);
@@ -58,14 +70,11 @@ export default function RegisterForEvent() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/events/${eventId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/api/events/${eventId}`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -77,16 +86,16 @@ export default function RegisterForEvent() {
 
         // Fetch image for the event from Unsplash API
         const result = await unsplash.search.getPhotos({
-          query: data.name,  // Search query based on event name
-          perPage: 1,  // Get only one image
+          query: data.name, // Search query based on event name
+          perPage: 1, // Get only one image
         });
 
         if (result.errors) {
-          throw new Error(result.errors.join(", "));
+          throw new Error(result.errors.join(', '));
         } else if (result.response.results.length > 0) {
           setEventImage(result.response.results[0].urls.regular);
         } else {
-          setEventImage('fallback-image-url.jpg');  // Fallback image if no result
+          setEventImage('fallback-image-url.jpg'); // Fallback image if no result
         }
       } catch (error) {
         setError(error.message);
@@ -115,7 +124,7 @@ export default function RegisterForEvent() {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID_REGISTER,
         emailParams,
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_PUBLIC_KEY,
       );
 
       if (response.status === 200) {
@@ -132,14 +141,14 @@ export default function RegisterForEvent() {
       setRegistering(true);
 
       const response = await fetch(
-        `http://localhost:3000/api/events/${eventId}/register`,
+        `${API_URL}/api/events/${eventId}/register`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       if (!response.ok) {

@@ -2,12 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Events() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const response = await fetch('http://localhost:3000/api/events');
+      const response = await fetch(`${API_URL}/api/events`);
       const data = await response.json();
       setEvents(data);
     };
@@ -23,8 +25,8 @@ export default function Events() {
           Discover Events
         </h1>
         <p className="text-neutral-500 text-lg max-w-2xl">
-          Join exciting events happening around you. From tech talks to workshops, 
-          find the perfect event that matches your interests.
+          Join exciting events happening around you. From tech talks to
+          workshops, find the perfect event that matches your interests.
         </p>
       </div>
 

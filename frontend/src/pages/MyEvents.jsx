@@ -17,6 +17,8 @@ const unsplash = createApi({
   accessKey: `${UNSPLASH_CLIENTID}`, // Replace with your Unsplash API key
 });
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 // Common Loading Component
 const LoadingState = ({ title }) => (
   <div className="min-h-screen p-6 pt-24">
@@ -55,14 +57,11 @@ const MyEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch(
-          'http://localhost:3000/api/events/mycreatedevents',
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/api/events/mycreatedevents`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -85,7 +84,7 @@ const MyEvents = () => {
                 result.response?.results[0]?.urls?.regular ||
                 '/default-image.jpg',
             };
-          })
+          }),
         );
 
         const imageMap = images.reduce((acc, { id, url }) => {

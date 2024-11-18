@@ -20,6 +20,8 @@ const unsplash = createApi({
   accessKey: `${UNSPLASH_CLIENTID}`, // Replace with your Unsplash API key
 });
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const LoadingState = ({ title }) => (
   <div className="min-h-screen p-6 pt-24">
     <div className="max-w-7xl mx-auto">
@@ -60,15 +62,12 @@ const MyRegistrations = () => {
           throw new Error('No authentication token available');
         }
 
-        const response = await fetch(
-          'http://localhost:3000/api/events/myregistrations',
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/api/events/myregistrations`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            'Content-Type': 'application/json',
+          },
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -91,7 +90,7 @@ const MyRegistrations = () => {
                 result.response?.results[0]?.urls?.regular ||
                 '/default-image.jpg',
             };
-          })
+          }),
         );
 
         const imageMap = images.reduce((acc, { id, url }) => {
@@ -198,7 +197,7 @@ const MyRegistrations = () => {
         eventName: registration.name,
         attendee: user.name,
         registrationId: registration._id,
-      })
+      }),
     );
 
     if (qrCodeData) {
@@ -212,7 +211,7 @@ const MyRegistrations = () => {
       'This ticket is valid for one-time entry. Please present this ticket at the event.',
       100,
       85,
-      { align: 'center' }
+      { align: 'center' },
     );
 
     // Save the PDF

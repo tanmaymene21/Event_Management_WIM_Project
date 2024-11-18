@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
+import {
   Calendar,
   MapPin,
   Type,
   FileText,
-  Loader2, 
-  AlertCircle
+  Loader2,
+  AlertCircle,
 } from 'lucide-react';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CreateEvent() {
   const [name, setName] = useState('');
@@ -25,7 +27,7 @@ export default function CreateEvent() {
 
     try {
       const token = JSON.parse(localStorage.getItem('userData'))?.token;
-      const response = await fetch('http://localhost:3000/api/events/create', {
+      const response = await fetch(`${API_URL}/api/events/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +56,9 @@ export default function CreateEvent() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-orange-800 text-transparent bg-clip-text">
             Create Event
           </h1>
-          <p className="text-neutral-400 mt-2">Fill in the details for your new event</p>
+          <p className="text-neutral-400 mt-2">
+            Fill in the details for your new event
+          </p>
         </div>
 
         <div className="bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 rounded-xl p-8">

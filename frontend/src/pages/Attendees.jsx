@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Users, Mail, Loader2, AlertCircle, UserCircle } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const LoadingState = () => (
   <div className="min-h-screen bg-black text-white p-6 pt-24">
     <div className="max-w-7xl mx-auto">
@@ -29,12 +31,12 @@ export default function Attendees() {
     const fetchAttendees = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/events/${eventId}/attendees`,
+          `${API_URL}/api/events/${eventId}/attendees`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
-          }
+          },
         );
 
         if (!response.ok) {
