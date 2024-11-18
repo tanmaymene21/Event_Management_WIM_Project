@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
   Send,
   CheckCircle,
   AlertCircle,
@@ -48,16 +44,16 @@ export default function ContactUs() {
 
     try {
       const response = await emailjs.send(
-        `${EMAILJS_SERVICE_ID}`, // Your EmailJS Service ID
-        `${EMAILJS_TEMPLATE_ID_CONTACTUS}`, // Your EmailJS Template ID
+        `${EMAILJS_SERVICE_ID}`,
+        `${EMAILJS_TEMPLATE_ID_CONTACTUS}`,
         {
-          from_name: formData.name, // Map 'from_name' to 'name'
-          from_email: formData.email, // Map 'from_email' to 'email'
-          subject: formData.subject, // Map 'subject'
-          message: formData.message, // Map 'message'
-          to_email: 'tvmene_b22@it.vjti.ac.in', // Include recipient email
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'tvmene_b22@it.vjti.ac.in',
         },
-        `${EMAILJS_PUBLIC_KEY}`, // Your EmailJS Public Key
+        `${EMAILJS_PUBLIC_KEY}`,
       );
 
       if (response.status === 200) {
@@ -65,7 +61,7 @@ export default function ContactUs() {
           type: 'success',
           message: 'Thank you for your message! We will get back to you soon.',
         });
-        setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form fields
+        setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
         throw new Error('Failed to send email');
       }
@@ -91,7 +87,6 @@ export default function ContactUs() {
             Send us a message and we'll respond as soon as possible.
           </p>
         </div>
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-2">

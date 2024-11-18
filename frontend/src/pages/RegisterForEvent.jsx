@@ -22,7 +22,6 @@ const EMAILJS_TEMPLATE_ID_REGISTER = import.meta.env
   .VITE_EMAILJS_TEMPLATE_ID_REGISTER;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-// Initialize Unsplash API client
 const unsplash = createApi({
   accessKey: UNSPLASH_CLIENTID,
 });
@@ -58,7 +57,7 @@ const ErrorState = ({ error }) => (
 export default function RegisterForEvent() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  const [eventImage, setEventImage] = useState(null); // State for storing image URL
+  const [eventImage, setEventImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [registering, setRegistering] = useState(false);
@@ -84,10 +83,9 @@ export default function RegisterForEvent() {
         const data = await response.json();
         setEvent(data);
 
-        // Fetch image for the event from Unsplash API
         const result = await unsplash.search.getPhotos({
-          query: data.name, // Search query based on event name
-          perPage: 1, // Get only one image
+          query: data.name,
+          perPage: 1,
         });
 
         if (result.errors) {
@@ -95,7 +93,7 @@ export default function RegisterForEvent() {
         } else if (result.response.results.length > 0) {
           setEventImage(result.response.results[0].urls.regular);
         } else {
-          setEventImage('fallback-image-url.jpg'); // Fallback image if no result
+          setEventImage('fallback-image-url.jpg');
         }
       } catch (error) {
         setError(error.message);
@@ -159,8 +157,8 @@ export default function RegisterForEvent() {
       const registrationData = await response.json();
 
       // Send confirmation email
-      // await sendConfirmationEmail(registrationData.registration);
-      toast.error('Send Email Function is Disabled');
+      await sendConfirmationEmail(registrationData.registration);
+      // toast.error('Send Email Function is Disabled');
       navigate('/myregistrations');
     } catch (error) {
       setError(error.message);
@@ -184,7 +182,6 @@ export default function RegisterForEvent() {
         </div>
 
         <div className="bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 rounded-xl overflow-hidden">
-          {/* Event Image */}
           <div className="relative aspect-video w-full overflow-hidden">
             <img
               src={eventImage || 'fallback-image-url.jpg'}
@@ -195,7 +192,6 @@ export default function RegisterForEvent() {
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 to-transparent" />
           </div>
 
-          {/* Event Details */}
           <div className="p-8">
             <h2 className="text-3xl font-bold mb-6">{event?.name}</h2>
 

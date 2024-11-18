@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../context/AuthContext';
 import { createApi } from 'unsplash-js';
 import {
   Calendar,
@@ -11,15 +11,13 @@ import {
   Clock,
 } from 'lucide-react';
 
-// Unsplash API setup
 const UNSPLASH_CLIENTID = import.meta.env.VITE_UNSPLASH_CLIENTID;
 const unsplash = createApi({
-  accessKey: `${UNSPLASH_CLIENTID}`, // Replace with your Unsplash API key
+  accessKey: `${UNSPLASH_CLIENTID}`,
 });
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-// Common Loading Component
 const LoadingState = ({ title }) => (
   <div className="min-h-screen p-6 pt-24">
     <div className="max-w-7xl mx-auto">
@@ -34,7 +32,6 @@ const LoadingState = ({ title }) => (
   </div>
 );
 
-// Common Error Component
 const ErrorState = ({ error }) => (
   <div className="min-h-screen p-6 pt-24">
     <div className="max-w-7xl mx-auto">
@@ -71,7 +68,6 @@ const MyEvents = () => {
         const data = await response.json();
         setEvents(data);
 
-        // Fetch images for all events
         const images = await Promise.all(
           data.map(async (event) => {
             const result = await unsplash.search.getPhotos({

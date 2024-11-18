@@ -1,5 +1,4 @@
-// ProtectedRoute.js
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ isAuthenticated, children }) => {
@@ -11,12 +10,11 @@ const ProtectedRoute = ({ isAuthenticated, children }) => {
     }
   }, [isAuthenticated, navigate]);
 
-  // If not authenticated, render nothing (as navigation will redirect to login)
   if (!isAuthenticated) {
     return null;
   }
 
-  return children; // Render the protected page if authenticated
+  return children; 
 };
 
 export default ProtectedRoute;

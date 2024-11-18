@@ -1,4 +1,3 @@
-// EventCard.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react';
@@ -8,7 +7,6 @@ export default function EventCard({ event }) {
 
   const UNSPLASH_CLIENTID = import.meta.env.VITE_UNSPLASH_CLIENTID;
 
-  // Fetch image dynamically based on event name
   useEffect(() => {
     const fetchImage = async () => {
       try {
@@ -21,18 +19,17 @@ export default function EventCard({ event }) {
         if (data.results.length > 0) {
           setImageUrl(data.results[0].urls.regular);
         } else {
-          setImageUrl('/default-image.jpg'); // Fallback to a default image
+          setImageUrl('/default-image.jpg');
         }
       } catch (error) {
         console.error('Error fetching image:', error);
-        setImageUrl('/default-image.jpg'); // Fallback to a default image
+        setImageUrl('/default-image.jpg');
       }
     };
 
     fetchImage();
   }, [event.name]);
 
-  // Format the event date
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-US', {
@@ -56,7 +53,6 @@ export default function EventCard({ event }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
 
-      {/* Event Details */}
       <div className="p-6">
         <div className="flex items-center space-x-2 text-orange-500 text-sm mb-3">
           <Calendar className="w-4 h-4" />
@@ -84,7 +80,6 @@ export default function EventCard({ event }) {
           </div>
         </div>
 
-        {/* Register Button */}
         <div className="mt-6 flex items-center text-orange-500 font-medium">
           Register Now
           <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />

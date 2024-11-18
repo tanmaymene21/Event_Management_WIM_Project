@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../context/AuthContext';
 import {
   Ticket,
   Calendar,
@@ -14,10 +14,9 @@ import QRCode from 'qrcode';
 import { jsPDF } from 'jspdf';
 import { createApi } from 'unsplash-js';
 
-// Unsplash API setup
 const UNSPLASH_CLIENTID = import.meta.env.VITE_UNSPLASH_CLIENTID;
 const unsplash = createApi({
-  accessKey: `${UNSPLASH_CLIENTID}`, // Replace with your Unsplash API key
+  accessKey: `${UNSPLASH_CLIENTID}`,
 });
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -77,7 +76,6 @@ const MyRegistrations = () => {
         const data = await response.json();
         setRegistrations(data);
 
-        // Fetch images for all events
         const images = await Promise.all(
           data.map(async (event) => {
             const result = await unsplash.search.getPhotos({
@@ -127,70 +125,57 @@ const MyRegistrations = () => {
       format: [200, 100],
     });
 
-    // Set background color
-    doc.setFillColor(255, 248, 240); // Light orange background
+    doc.setFillColor(255, 248, 240);
     doc.rect(0, 0, 200, 100, 'F');
 
-    // Add border with gradient-like effect
-    doc.setDrawColor(249, 115, 22); // Orange border
+    doc.setDrawColor(249, 115, 22);
     doc.setLineWidth(0.5);
     doc.rect(5, 5, 190, 90);
 
-    // Add decorative elements
-    doc.setDrawColor(194, 65, 12); // Darker orange
+    doc.setDrawColor(194, 65, 12);
     doc.setLineWidth(0.25);
     doc.rect(8, 8, 184, 84);
 
-    // Add header
     doc.setFontSize(24);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(249, 115, 22); // Orange text
     doc.text('EVENT TICKET', 100, 20, { align: 'center' });
 
-    // Add subtitle
     doc.setFontSize(10);
     doc.setTextColor(194, 65, 12); // Darker orange
     doc.text('Event Master', 100, 26, { align: 'center' });
 
-    // Reset text color for details
     doc.setTextColor(0);
 
-    // Add event details
     doc.setFontSize(12);
     doc.setFont('helvetica', 'normal');
 
-    // Event name
     doc.setFont('helvetica', 'bold');
     doc.text('Event:', 15, 35);
     doc.setFont('helvetica', 'normal');
     doc.text(registration.name, 35, 35);
 
-    // Date and time
     doc.setFont('helvetica', 'bold');
     doc.text('Date:', 15, 45);
     doc.setFont('helvetica', 'normal');
     doc.text(registration.date || 'TBA', 35, 45);
 
-    // Location
     doc.setFont('helvetica', 'bold');
     doc.text('Location:', 15, 55);
     doc.setFont('helvetica', 'normal');
     doc.text(registration.location || 'TBA', 35, 55);
 
-    // Attendee details
     doc.setFont('helvetica', 'bold');
     doc.text('Attendee:', 15, 65);
     doc.setFont('helvetica', 'normal');
     doc.text(user.name || 'Guest', 35, 65);
 
-    // Registration ID
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
     doc.text('Registration ID:', 15, 75);
     doc.setFont('helvetica', 'normal');
     doc.text(registration._id, 45, 75);
 
-    // Generate and add QR code
     const qrCodeData = await generateQRCode(
       JSON.stringify({
         eventId: registration._id,
@@ -204,7 +189,6 @@ const MyRegistrations = () => {
       doc.addImage(qrCodeData, 'PNG', 140, 30, 40, 40);
     }
 
-    // Add footer
     doc.setFontSize(8);
     doc.setTextColor(128, 128, 128);
     doc.text(
@@ -214,7 +198,6 @@ const MyRegistrations = () => {
       { align: 'center' },
     );
 
-    // Save the PDF
     doc.save(`${registration.name}-ticket.pdf`);
   };
 

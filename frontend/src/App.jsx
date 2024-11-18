@@ -11,16 +11,16 @@ import MyEvents from './pages/MyEvents';
 import MyRegistrations from './pages/MyRegistrations';
 import Attendees from './pages/Attendees';
 import { Toaster } from 'react-hot-toast';
-import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
+import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 import Footer from './components/Footer';
-import ContactUs from './pages/ContactUS';
+import ContactUs from './pages/ContactUs';
 
 function App() {
-  const { user, loading } = useAuth(); // Get user data and loading state from context
+  const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>; // Optionally, you can show a loading spinner or message while loading
+    return <div>Loading...</div>;
   }
 
   const isAuthenticated = user ? true : false;
@@ -36,7 +36,6 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/contact" element={<ContactUs />} />
 
-          {/* Protect the "Create Event", "Register for Event", and "Attendees" routes */}
           <Route
             path="/events/create"
             element={
@@ -62,7 +61,6 @@ function App() {
             }
           />
 
-          {/* Protect the "My Events" and "My Registrations" routes */}
           <Route
             path="/myevents"
             element={

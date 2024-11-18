@@ -1,4 +1,3 @@
-// Events.js
 import React, { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
 
@@ -19,7 +18,6 @@ export default function Events() {
 
   return (
     <div className="min-h-screen bg-black text-white p-6 pt-24">
-      {/* Hero Section */}
       <div className="max-w-7xl mx-auto mb-12">
         <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
           Discover Events
@@ -30,7 +28,6 @@ export default function Events() {
         </p>
       </div>
 
-      {/* Events Grid */}
       <div className="max-w-7xl mx-auto">
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {events.map((event) => (
