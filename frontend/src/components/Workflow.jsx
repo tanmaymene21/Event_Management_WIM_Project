@@ -1,5 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
-import codeImg from "../assets/code.jpg";
+import codeImg from "../assets/code.png";
 import { checklistItems } from "../constants";
 
 const Workflow = () => {
@@ -14,7 +14,11 @@ const Workflow = () => {
       </h2>
       <div className="flex flex-wrap justify-center">
         <div className="p-2 w-full lg:w-1/2">
-          <img src={codeImg} alt="Event Management" />
+          <img
+            className="mx-auto w-full max-w-[500px] h-auto"
+            src={codeImg}
+            alt="Event Management"
+          />
         </div>
         <div className="pt-12 w-full lg:w-1/2">
           {checklistItems.map((item, index) => (
