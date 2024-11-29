@@ -5,7 +5,6 @@ const Registration = require('../models/Registration');
 exports.getEvents = async (req, res) => {
   try {
     const events = await Event.find().populate('createdBy', 'username');
-    console.log(events)
     res.json(events);
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving events' });
@@ -103,7 +102,7 @@ exports.getUserRegistrations = async (req, res) => {
         path: 'event',
         select: 'name description date location' // specify fields you want to retrieve
       });
-    
+
     if (!registrations) {
       return res.status(404).json({ message: 'No registrations found' });
     }

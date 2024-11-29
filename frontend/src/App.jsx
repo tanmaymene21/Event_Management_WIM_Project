@@ -18,6 +18,7 @@ import ContactUs from './pages/ContactUs';
 
 function App() {
   const { user, loading } = useAuth();
+  console.log(user?.user.email);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -26,7 +27,12 @@ function App() {
   const isAuthenticated = user ? true : false;
 
   return (
-    <Router>
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <div className="App text-white">
         <Navbar />
         <Routes>

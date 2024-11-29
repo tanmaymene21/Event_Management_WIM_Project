@@ -69,7 +69,7 @@ export default function RegisterForEvent() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/events/${eventId}`, {
+        const response = await fetch(`/api/events/${eventId}`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -138,16 +138,13 @@ export default function RegisterForEvent() {
     try {
       setRegistering(true);
 
-      const response = await fetch(
-        `${API_URL}/api/events/${eventId}/register`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${user.token}`,
-          },
+      const response = await fetch(`/api/events/${eventId}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
         },
-      );
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

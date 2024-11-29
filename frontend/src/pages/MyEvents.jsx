@@ -54,7 +54,7 @@ const MyEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/events/mycreatedevents`, {
+        const response = await fetch(`/api/events/mycreatedevents`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

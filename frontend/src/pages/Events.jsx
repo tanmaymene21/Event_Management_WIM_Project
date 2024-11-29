@@ -8,7 +8,7 @@ export default function Events() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const response = await fetch(`${API_URL}/api/events`);
+      const response = await fetch(`/api/events`);
       const data = await response.json();
       setEvents(data);
     };

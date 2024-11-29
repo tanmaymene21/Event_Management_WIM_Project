@@ -61,7 +61,7 @@ const MyRegistrations = () => {
           throw new Error('No authentication token available');
         }
 
-        const response = await fetch(`${API_URL}/api/events/myregistrations`, {
+        const response = await fetch(`/api/events/myregistrations`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
             'Content-Type': 'application/json',

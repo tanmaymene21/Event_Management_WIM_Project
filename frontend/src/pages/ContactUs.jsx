@@ -12,12 +12,6 @@ const EMAILJS_TEMPLATE_ID_CONTACTUS = import.meta.env
   .VITE_EMAILJS_TEMPLATE_ID_CONTACTUS;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-console.log(
-  EMAILJS_SERVICE_ID,
-  EMAILJS_TEMPLATE_ID_CONTACTUS,
-  EMAILJS_PUBLIC_KEY,
-);
-
 export default function ContactUs() {
   const [formData, setFormData] = useState({
     name: '',
@@ -39,8 +33,6 @@ export default function ContactUs() {
     e.preventDefault();
     setLoading(true);
     setStatus({ type: '', message: '' });
-
-    console.log(formData);
 
     try {
       const response = await emailjs.send(

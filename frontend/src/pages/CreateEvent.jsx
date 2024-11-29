@@ -27,7 +27,7 @@ export default function CreateEvent() {
 
     try {
       const token = JSON.parse(localStorage.getItem('userData'))?.token;
-      const response = await fetch(`${API_URL}/api/events/create`, {
+      const response = await fetch(`/api/events/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

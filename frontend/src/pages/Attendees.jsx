@@ -29,14 +29,11 @@ export default function Attendees() {
   useEffect(() => {
     const fetchAttendees = async () => {
       try {
-        const response = await fetch(
-          `${API_URL}/api/events/${eventId}/attendees`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
+        const response = await fetch(`/api/events/${eventId}/attendees`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
           },
-        );
+        });
 
         if (!response.ok) {
           throw new Error('Failed to fetch attendees');
