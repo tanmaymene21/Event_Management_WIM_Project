@@ -37,8 +37,8 @@
 
 1. Clone the repository
 ```bash
-git clone https://github.com/tanmaymene21/event-master.git
-cd event-master
+https://github.com/tanmaymene21/Event_Management_WIM_Project.git
+cd Event_Management_WIM_Project
 ```
 
 2. Install Frontend Dependencies
